@@ -1,0 +1,768 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&display=swap');
+
+/* Reset global - Esto asegura 0 bordes */
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100%;
+    background-color: #050505;
+    margin: 0;
+}
+
+body {
+    color: white;
+    font-family: 'Orbitron', sans-serif;
+    overflow-x: hidden;
+}
+
+/* =========================================
+   SECCIÓN 1: HÉROE CORTINA / SIERRA
+   ========================================= */
+
+.umbrella-hero-revealer {
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+    background-color: #050505; /* Mismo fondo oscuro que el resto de la web */
+}
+
+.curtain-container {
+    position: sticky; /* Lo mantiene anclado en la pantalla durante el scroll */
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    /* Usamos flexbox para ayudar al centrado */
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+/* --- EL LOGO SIERRA --- */
+.umbrella-sierra-logo {
+    width: 450px; /* Un poco más grande para que imponga */
+    position: absolute;
+    
+    /* TRUCO PARA CENTRAR PERFECTO SIN AFECTAR GSAP */
+    top: 0; bottom: 80px; left: 0; right: 0;
+    margin: auto; 
+    
+    /* El eje de rotación debe ser exactamente el centro */
+    transform-origin: center center; 
+    
+    /* Brillo rojo tipo alarma/láser para que se vea más pro */
+    filter: drop-shadow(0 0 25px rgba(255, 34, 51, 0.8));
+    z-index: 2;
+}
+
+/* --- EL TEXTO UMBRELLA CORPORATION --- */
+.umbrella-text-bottom {
+    position: absolute;
+    bottom: 10vh; /* Se queda en la parte de abajo */
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    z-index: 1;
+}
+
+.text-main {
+    font-size: 3.5rem;
+    font-weight: 700; /* Más grueso */
+    letter-spacing: 0.5rem;
+    text-shadow: 0 0 15px rgba(246, 15, 34, 0.5); /* Resplandor rojo sutil */
+}
+
+.text-sub {
+    font-size: 1.2rem;
+    font-weight: 400;
+    letter-spacing: 0.3rem;
+    color: #cccccc;
+    margin-top: 5px;
+}
+
+
+
+
+
+
+.card {
+    overflow: visible;  
+    
+    border-radius: 12px;
+    flex: 1;
+    text-align: center;
+    
+}
+
+.card-img-placeholder {
+    height: 150px;
+    background-color: #444;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.textos-hero {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10vw;
+    box-sizing: border-box;
+    pointer-events: none;
+    transform-style: preserve-3d;
+}
+
+.titulo, .subtitulo {
+    font-size: 5rem;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    text-shadow: 0 0 20px rgba(40, 0, 0, 0.5);
+}
+/* =========================================
+   SECCIÓN 2: GRID DE TARJETAS (VIRUS)
+   ========================================= */
+
+.seccion-siguiente {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #090a0f;
+    padding: 80px 20px;
+}
+
+.seccion-siguiente h2 {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 50px;
+    font-size: 4rem;
+    color: white;
+    text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+    opacity: 0; /* Empieza invisible */
+    transform: translateY(-20px); /* Ligeramente hacia arriba */
+}
+
+.card-grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+    position: relative; /* Necesario para que la línea de escaneo se posicione respecto a esto */
+    overflow: hidden; /* Oculta la línea de escaneo cuando sale del contenedor */
+}
+
+/* 3. Estilos para la LÍNEA DE ESCANEO LÁSER */
+.scan-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px; /* Grosor de la línea */
+    background: linear-gradient(to right, transparent, #e1ff00, transparent); /* Degradado rojo neón */
+    box-shadow: 0 0 15px #ff2233, 0 0 30px #ff2233; /* Brillo intenso */
+    z-index: 10; /* Por encima de las tarjetas */
+    opacity: 0; /* Empieza invisible */
+    transform: translateY(-100%); /* Empieza fuera por arriba */
+}
+
+/* --- ESTILOS INDIVIDUALES DE LA TARJETA --- */
+
+.card {
+  overflow: visible;
+  width: 300px;
+  height: 350px;
+  margin: 0 auto;
+  perspective: 1000PX;
+  opacity: 0; /* Invisibles */
+    transform: translateY(50px) rotateX(-15deg); /* Desplazadas hacia abajo y rotadas en 3D */
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.6s ease; /* Transición suave para cuando aparezcan */
+    
+    /* Asegurar que la perspectiva 3D se mantenga para el efecto de volteo posterior */
+    perspective: 1000px;
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0px 0px 20px 2px rgba(255, 34, 51, 0.3);
+  border-radius: 8px;
+}
+
+.card:hover .content {
+  transform: rotateY(180deg);
+}
+
+.front, .back {
+  background-color: #1a1a24;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+/* === LADO INICIAL (CON IMAGEN Y DESCRIPCIÓN CORTA) === */
+.back {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Borde animado */
+.back::before {
+  position: absolute;
+  content: ' ';
+  display: block;
+  width: 200px;
+  height: 200%;
+  background: linear-gradient(90deg, transparent, #ff2233, #ff2233, #ff2233, #ff2233, transparent);
+  animation: rotation_481 5000ms infinite linear;
+  z-index: 0;
+}
+
+.back-content {
+  position: absolute;
+  width: 98%;
+  height: 98%;
+  background-color: #151515;
+  border-radius: 5px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* IMAGEN AL 100% DE OPACIDAD */
+.cover-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  opacity: 1; /* <-- 100% visible */
+}
+
+/* Textos flotando sobre la imagen */
+.front-content {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 2; 
+}
+
+.front-content .badge {
+  background-color: rgba(22, 25, 19, 0.7);
+  padding: 4px 10px;
+  border-radius: 10px;
+  backdrop-filter: blur(4px);
+  width: fit-content;
+  color: white;
+  font-weight: bold;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.description {
+  box-shadow: 0px 0px 15px 5px rgba(0,0,0,0.9);
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(10, 10, 15, 0.85); 
+  backdrop-filter: blur(5px);
+  border-radius: 5px;
+  color: white;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.title {
+  font-size: 12px;
+  max-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: #ff2233;
+}
+
+.title p {
+  width: 100%;
+}
+
+.card-footer {
+  color: #ffffffaa;
+  margin-top: 5px;
+  font-size: 9px;
+}
+
+@keyframes rotation_481 {
+  0% { transform: rotateZ(0deg); }
+  100% { transform: rotateZ(360deg); }
+}
+
+/* === LADO AL VOLTEAR (DESCRIPCIÓN LARGA CON SCROLL) === */
+.front {
+  transform: rotateY(180deg);
+  background-color: #050505; /* Tu color de fondo base */
+  position: relative; /* Necesario para posicionar la imagen */
+  overflow: hidden;
+}
+
+/* Este es el contenedor de la imagen transparente */
+.front::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* Aquí pones tu imagen */
+  background-image: url('../assets/img/gg.jpg'); 
+  background-size: cover;
+  background-position: center;
+  
+  /* AQUÍ CONTROLAS LA TRANSPARENCIA DE LA IMAGEN */
+  opacity: 0.2; 
+  
+  /* Lo enviamos al fondo para que no tape el texto */
+  z-index: 0; 
+}
+
+.long-description-box {
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+  display: flex;
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto; /* Permite scroll si hay mucho texto */
+}
+
+.long-title {
+  font-size: 14px;
+  color: #ff2233;
+  text-transform: uppercase;
+  border-bottom: 1px solid rgba(255, 34, 51, 0.5);
+  padding-bottom: 5px;
+  margin: 0;
+}
+
+.long-text {
+  font-size: 11px;
+  color: #d1d1d1;
+  line-height: 1.5;
+  text-align: left;
+  margin: 0;
+}
+
+
+/* =========================================
+   SECCIÓN 3: PROYECTO B.O.W. (Scroll Horizontal)
+   ========================================= */
+
+.bow-section {
+    height: 100vh;
+    background-color: #020202;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.bow-header {
+    position: absolute;
+    top: 40px;
+    left: 50px;
+    z-index: 20;
+}
+
+.bow-header h2 {
+    font-size: 3rem;
+    color: #ff2233;
+    text-shadow: 2px 2px 10px rgba(255, 34, 51, 0.5);
+    margin-bottom: 5px;
+}
+
+.bow-header p {
+    color: #666;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+/* El Riel que contiene los 15 sujetos */
+.bow-horizontal-scroll {
+    display: flex;
+    width: 1500vw; /* 100vw por cada uno de los 15 paneles */
+    height: 70vh;
+    align-items: center;
+}
+
+.bow-panel {
+    width: 100vw;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    padding: 0 5vw;
+}
+
+/* Contenedor de la imagen del monstruo */
+.bow-image-wrapper {
+    position: relative;
+    width: 400px;
+    height: 550px;
+    border: 1px solid rgba(255, 34, 51, 0.2);
+    background: #000;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 1);
+}
+
+.bow-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.1; /* Se ilumina con JS */
+    filter: grayscale(100%) contrast(120%);
+    transition: filter 0.5s ease;
+}
+
+.bow-vignette {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: radial-gradient(circle, transparent 20%, #020202 95%);
+    pointer-events: none;
+}
+
+/* --- BLOQUE DE INFORMACIÓN TÁCTICA --- */
+
+.bow-info {
+    width: 550px;
+    padding: 25px;
+    background: rgba(10, 10, 10, 0.8);
+    border-left: 4px solid #ff2233;
+    backdrop-filter: blur(15px);
+    border-radius: 0 10px 10px 0;
+    box-shadow: 20px 0 50px rgba(0,0,0,0.5);
+}
+
+.bow-header-data h3 {
+    font-size: 2.8rem;
+    color: #fff;
+    margin: 0;
+    line-height: 1;
+}
+
+.bow-codename {
+    color: #00ffff;
+    font-family: monospace;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+.physical-specs {
+    font-size: 0.85rem;
+    color: #888;
+    font-family: monospace;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #333;
+    padding-bottom: 10px;
+}
+
+/* Grid de datos técnicos */
+.bow-data-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.data-block {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.data-block h4 {
+    font-size: 0.75rem;
+    margin-bottom: 5px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.data-block p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: #bbb;
+    margin: 0;
+}
+
+/* Colores de Alerta para los bloques */
+.critical h4 { color: #ff2233; } /* Rojo: Peligro/Debilidad */
+.warning h4 { color: #ffcc00; }  /* Amarillo: Conducta */
+.bio h4 { color: #00ff66; }      /* Verde: Lore/Bio */
+
+/* Barras de Estadísticas */
+.bow-stats {
+    margin-top: 20px;
+}
+
+.stat-row {
+    margin-bottom: 12px;
+}
+
+.stat-row span {
+    display: block;
+    font-size: 0.7rem;
+    color: #666;
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+}
+
+.stat-bar {
+    width: 100%;
+    height: 6px;
+    background-color: #1a1a1a;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.stat-bar .fill {
+    height: 100%;
+    background: linear-gradient(90deg, #ff2233, #881111);
+    box-shadow: 0 0 15px rgba(255, 34, 51, 0.5);
+}
+
+/* =========================================
+   SECCIÓN 4: GALERÍA DE EVIDENCIA
+   ========================================= */
+
+.evidence-gallery {
+    min-height: 100vh;
+    background-color: #050505;
+    padding: 120px 8vw;
+    position: relative;
+}
+
+.evidence-gallery h2 {
+    text-align: center;
+    color: #fff;
+    font-size: 3.5rem;
+    margin-bottom: 60px;
+    letter-spacing: 8px;
+    font-weight: 900;
+    text-transform: uppercase;
+    border-bottom: 2px solid #222;
+    padding-bottom: 30px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.g-img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    border: 1px solid #222;
+    filter: grayscale(100%) brightness(0.4);
+    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    cursor: crosshair;
+    opacity: 0; /* Controlado por GSAP */
+    transform: translateY(40px); /* Controlado por GSAP */
+}
+
+/* Efecto al pasar el mouse por la galería */
+.g-img:hover {
+    filter: grayscale(0%) brightness(1.1);
+    border-color: #ff2233;
+    box-shadow: 0 0 30px rgba(255, 34, 51, 0.4);
+    transform: scale(1.08) !important;
+    z-index: 50;
+}
+
+/* Scrollbar personalizada para que no rompa la estética */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #050505;
+}
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #ff2233;
+}
+
+/* =========================================
+   SECCIÓN: REGISTRO DE SUJETOS DE INTERÉS
+   ========================================= */
+
+.subjects-section {
+    min-height: 100vh;
+    padding: 120px 8vw;
+    background-image: url('../assets/img/mold-texture.jpg'); /* <- Reemplaza con image_111.png o similar */
+    background-size: cover;
+    background-position: center;
+    background-color: transparent !important; /* Forza transparencia para ver moho fúngico de fondo */
+    position: relative;
+}
+
+.subjects-header {
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+    z-index: 10;
+}
+
+.subjects-header h2 {
+    font-size: 3rem;
+    color: #ff2233;
+    text-shadow: 2px 2px 10px rgba(255, 34, 51, 0.5);
+    margin-bottom: 5px;
+}
+
+.subjects-header p {
+    color: #888;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+/* Contenedor Grid para las fichas */
+.subjects-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 5;
+}
+
+/* --- ESTILO DE LA FICHA INDIVIDUAL (SUBJECT CARD) --- */
+
+.subject-card {
+    background: rgba(15, 15, 15, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    position: relative;
+    border-radius: 2px;
+    backdrop-filter: blur(10px);
+    border-left: 3px solid #ff2233;
+    overflow: hidden; /* Oculta estampas que salen */
+}
+
+/* El Clip de Sujeción Visual */
+.card-clip {
+    position: absolute;
+    top: -5px;
+    left: 10px;
+    width: 30px;
+    height: 10px;
+    background-color: #333;
+    border-radius: 5px 5px 0 0;
+    z-index: 2;
+}
+
+/* Imagen de Surveillance */
+.subject-img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    filter: grayscale(100%) brightness(0.7) contrast(120%);
+    border: 1px solid #333;
+    margin-bottom: 15px;
+    display: block;
+}
+
+/* El Sello Rojo de WANTED o TERMINATED */
+.stamp {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+    font-size: 1.8rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    border: 3px solid #ff2233;
+    color: #ff2233;
+    padding: 10px 20px;
+    letter-spacing: 2px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 0 15px rgba(255, 34, 51, 0.5);
+    backdrop-filter: blur(2px);
+    z-index: 10;
+    opacity: 0.8;
+}
+
+/* Variación para Deceased */
+.deceased .subject-img {
+    filter: grayscale(100%) brightness(0.4);
+}
+
+.stamp.deactivated {
+    border-color: #888;
+    color: #888;
+    text-shadow: 0 0 10px rgba(100, 100, 100, 0.3);
+    box-shadow: 0 0 15px rgba(100, 100, 100, 0.2);
+}
+
+/* Textos de la ficha */
+.card-info {
+    position: relative;
+    z-index: 5;
+}
+
+.card-info h3 {
+    font-size: 1.5rem;
+    color: #fff;
+    margin-bottom: 8px;
+    line-height: 1;
+}
+
+.card-info p {
+    font-size: 0.8rem;
+    color: #aaa;
+    margin-bottom: 5px;
+    font-family: monospace;
+}
+
+.card-info span {
+    font-weight: bold;
+}
+
+/* Colores de nivel de amenaza */
+.threat { color: #ffcc00; } /* Amarillo Conducta */
+.risk { color: #ff2233; }   /* Rojo Peligro */
+.safe { color: #00ff66; }   /* Verde Ex-empleado */
+.high { color: #00ffff; }   /* Cian Wesker */
