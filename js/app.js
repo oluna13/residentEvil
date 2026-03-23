@@ -1,6 +1,100 @@
 // Registramos el plugin necesario
 gsap.registerPlugin(ScrollTrigger);
 
+// --- TEST DE ESPORAS ---
+const initSpores = () => {
+    const canvas = document.querySelector('#spore-canvas');
+    if (!canvas) return;
+
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true });
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+    // 1. CREAR TEXTURA BORROSA DE HONGO (Para que no sean cuadrados feos)
+    const fuzzyTexture = document.createElement('canvas');
+    fuzzyTexture.width = 32; fuzzyTexture.height = 32;
+    const ctx = fuzzyTexture.getContext('2d');
+    const gradient = ctx.createRadialGradient(16, 16, 0, 16, 16, 16);
+    gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
+    gradient.addColorStop(0.4, 'rgba(200, 220, 150, 0.8)'); // Borde amarillento asqueroso
+    gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 32, 32);
+    const texture = new THREE.CanvasTexture(fuzzyTexture);
+
+    // 2. GEOMETRÍA Y COLORES PODRIDOS
+    const particlesCount = 3500;
+    const posArray = new Float32Array(particlesCount * 3);
+    const colorArray = new Float32Array(particlesCount * 3);
+    const color = new THREE.Color();
+
+    for(let i = 0; i < particlesCount; i++) {
+        // Posiciones aleatorias
+        posArray[i * 3] = (Math.random() - 0.5) * 20;
+        posArray[i * 3 + 1] = (Math.random() - 0.5) * 20;
+        posArray[i * 3 + 2] = (Math.random() - 0.5) * 20;
+
+        // Mezcla de colores de "hongo culero"
+        const rand = Math.random();
+        if (rand < 0.3) color.setHex(0x556b2f); // Verde Oliva Oscuro (Moho)
+        else if (rand < 0.6) color.setHex(0x8b8c56); // Verde/Amarillo Enfermo
+        else if (rand < 0.8) color.setHex(0x4a4028); // Café Sucio (Sangre seca/Tierra)
+        else color.setHex(0x222222); // Esporas negras
+
+        colorArray[i * 3] = color.r;
+        colorArray[i * 3 + 1] = color.g;
+        colorArray[i * 3 + 2] = color.b;
+    }
+
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+    geometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
+
+    // 3. MATERIAL OPACADO (NormalBlending en lugar de luz aditiva)
+    const material = new THREE.PointsMaterial({
+        size: 0.12, // Pedazos más grandes de mugre
+        vertexColors: true, // Usa los colores podridos que definimos arriba
+        map: texture, // Usa la textura borrosa
+        transparent: true,
+        opacity: 0.6,
+        depthWrite: false, // Evita fallos visuales entre partículas
+        blending: THREE.NormalBlending // Ahora parecen polvo/mugre física, no luz láser
+    });
+
+    const points = new THREE.Points(geometry, material);
+    scene.add(points);
+    camera.position.z = 5;
+
+    // 4. ANIMACIÓN: CAÍDA PESADA DE ESPORAS
+    const animate = () => {
+        requestAnimationFrame(animate);
+        
+        // Rotación general muy lenta para dar mareo
+        points.rotation.y += 0.0002;
+        
+        // Hace que las partículas caigan lentamente como ceniza/moho
+        points.position.y -= 0.003; 
+        
+        // Si caen mucho, las regresamos arriba para un bucle infinito
+        if (points.position.y < -10) {
+            points.position.y = 10;
+        }
+
+        renderer.render(scene, camera);
+    };
+    animate();
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+};
+// Arrancamos cuando todo cargue
+window.onload = initSpores;
 
 // Verificamos si los elementos existen en la página para no generar errores
 if (document.querySelector(".umbrella-hero-revealer") && document.querySelector(".umbrella-sierra-logo")) {
@@ -258,7 +352,7 @@ if (document.querySelector(".bow-section")) {
 }
 
 // ==========================================
-// 4. ANIMACIÓN DE LA GALERÍA FINAL
+// 4. ANIMACIÓN DE LA GALERÍA FINAL (¡AQUÍ ESTÁ DE VUELTA, PA!)
 // ==========================================
 
 if (document.querySelector(".evidence-gallery")) {
@@ -278,45 +372,162 @@ if (document.querySelector(".evidence-gallery")) {
 // AL FINAL DE TODO TU ARCHIVO: Refrescar para asegurar posiciones
 ScrollTrigger.refresh();
 
-
 // ==========================================
-// SECCIÓN 5: SUJETOS DE INTERÉS (Entrada "Bounce")
+// SECCIÓN 5: SUJETOS DE INTERÉS (Entrada "Terminal Loading")
 // ==========================================
 
 if (document.querySelector(".subjects-section")) {
     
-    // Timeline para la entrada secuencial de las tarjetas
+    // Timeline optimizado
     let virusTl = gsap.timeline({
         scrollTrigger: {
             trigger: ".subjects-section",
-            start: "top 70%", // Se activa cuando el top llega al 70% de la pantalla
-            once: true, // Solo corre una vez, no reverso
+            start: "top 75%", // Se activa un poco antes
+            once: true, 
         }
     });
 
-    // Las cartas caen de arriba, grandes y rebotando
-    virusTl.from(".subject-card", {
-        scale: 3, // Caen de muy "cerca"
+    virusTl.from(".category-title", {
         opacity: 0,
-        y: -100,
-        rotateX: -30,
-        stagger: {
-            amount: 1, // Tiempo total para que entren todas (1 segundo)
-            ease: "none"
-        },
-        duration: 0.8,
-        ease: "bounce.out" // Rebotan al caer sobre la "mesa"
+        x: -50, // Entran desde la izquierda
+        duration: 0.5,
+        stagger: 0.2,
+        ease: "power2.out"
     });
 
-    // Y luego hacemos que el sello de cada una aparezca con un parpadeo
+    // 1. Las cartas aparecen suavemente con un ligero movimiento hacia arriba
+    // Esto es muy ligero para la GPU
+    virusTl.from(".subject-card", {
+        opacity: 0,
+        y: 50, // Solo un ligero desplazamiento en vez de caer de -100
+        stagger: {
+            amount: 1.5, // Le damos más tiempo (1.5s) para que no sea tan brusco
+            grid: "auto", // Ayuda a que aparezcan en un patrón de cuadrícula
+            from: "start"
+        },
+        duration: 0.6,
+        ease: "power2.out",
+        clearProps: "all" // CRUCIAL: Limpia los estilos de animación al terminar para liberar memoria
+    });
+
+    // 2. Los sellos aparecen de golpe con un pequeño parpadeo (flicker)
     virusTl.from(".stamp", {
         opacity: 0,
-        scale: 10,
-        delay: -1.2, // Empieza antes de que terminen las cartas
+        scale: 1.5, // Un pop más sutil
+        stagger: {
+            amount: 1.5, // Debe coincidir con el stagger de las cartas
+            from: "start"
+        },
         duration: 0.2,
-        ease: "power2.out",
-        onComplete: () => {
-            gsap.to(".stamp", { opacity: 0.8, repeat: 3, yoyo: true, duration: 0.05 }) // Parpadeo final
+        ease: "back.out(2)", // Pequeño efecto de "sello golpeando"
+        delay: -1.2, // Se traslapa con la aparición de las cartas
+    });
+}
+
+
+// ==========================================
+// SECCIÓN 6: ARSENAL TÁCTICO (Entrada del Maletín)
+// ==========================================
+
+if (document.querySelector(".arsenal-section")) {
+    
+    let arsenalTl = gsap.timeline({
+        scrollTrigger: {
+            trigger: ".arsenal-section",
+            start: "top 75%",
+            once: true
+        }
+    });
+
+    // 1. El maletín aparece suavemente desde abajo
+    arsenalTl.from(".attache-case", {
+        y: 80,
+        opacity: 0,
+        duration: 0.8,
+        ease: "power3.out"
+    });
+
+    // 2. Las armas se "acomodan" en sus ranuras una por una (Efecto Tetris)
+    arsenalTl.from(".inv-item", {
+        scale: 0.5,
+        opacity: 0,
+        stagger: 0.08, // Muy rápido
+        duration: 0.5,
+        ease: "back.out(1.5)", 
+        clearProps: "all" // Optimización vital para que funcionen los hovers de CSS
+    }, "-=0.4");
+}
+
+
+// ==========================================
+// FIX TÁCTICO: SENSOR DE HOLOGRAMAS (INVENTARIO)
+// ==========================================
+
+const invItems = document.querySelectorAll('.inv-item');
+
+invItems.forEach(item => {
+    item.addEventListener('mouseenter', (e) => {
+        let stats = item.querySelector('.holo-stats');
+        const rect = e.currentTarget.getBoundingClientRect();
+        
+        // window.innerWidth es el ancho total de tu monitor.
+        // rect.right es dónde termina la foto del arma.
+        // Restamos para saber cuántos píxeles de espacio libre hay a la derecha.
+        const espacioLibreDerecha = window.innerWidth - rect.right;
+        
+        // Si hay menos de 300px de espacio libre (y el holograma mide 250px), lo volteamos
+        if (espacioLibreDerecha < 300) {
+            stats.classList.add('flip-left');
+        } else {
+            stats.classList.remove('flip-left');
+        }
+    });
+});
+
+// ==========================================
+// FIX TÁCTIL: CONVERTIR HOVER EN CLIC (MÓVILES)
+// ==========================================
+
+// Detectamos si el usuario está en un dispositivo táctil (celular/tablet)
+if (window.matchMedia("(pointer: coarse)").matches) {
+    
+    // 1. Lógica para las Tarjetas de Virus (Volteo 3D)
+    const virusCards = document.querySelectorAll('.card');
+    virusCards.forEach(card => {
+        card.addEventListener('click', (e) => {
+            e.stopPropagation(); // Evita que el clic cierre la tarjeta al instante
+            
+            // Cierra todas las demás tarjetas
+            virusCards.forEach(c => { if(c !== card) c.classList.remove('active') });
+            
+            // Alterna la tarjeta que tocaste (abre/cierra)
+            card.classList.toggle('active');
+        });
+    });
+
+    // 2. Lógica para el Maletín (Hologramas)
+    const touchItems = document.querySelectorAll('.inv-item');
+    touchItems.forEach(item => {
+        item.addEventListener('click', (e) => {
+            e.stopPropagation(); 
+            
+            // Cierra las demás armas para que no se amontonen los hologramas
+            touchItems.forEach(i => { if(i !== item) i.classList.remove('active') });
+            
+            // Abre/Cierra el arma que tocaste
+            item.classList.toggle('active');
+        });
+    });
+
+    // 3. Lógica para cerrar todo si tocas "afuera" (el fondo)
+    document.addEventListener('click', (e) => {
+        // Si tocas fuera de una carta, ciérrala
+        if (!e.target.closest('.card')) {
+            virusCards.forEach(c => c.classList.remove('active'));
+        }
+        // Si tocas fuera del maletín, cierra los hologramas
+        if (!e.target.closest('.inv-item')) {
+            touchItems.forEach(i => i.classList.remove('active'));
         }
     });
 }

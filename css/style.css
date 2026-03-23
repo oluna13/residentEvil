@@ -20,6 +20,29 @@ body {
     overflow-x: hidden;
 }
 
+#spore-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 0; /* Regresa al fondo */
+    pointer-events: none;
+    background: #000; /* Negro puro */
+}
+
+/* OPCIONAL: Metamos un overlay de 'Ruido' para que el negro no se vea plano */
+body::after {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    /* Imagen de ruido sutil o scanlines */
+    background: url('https://raw.githubusercontent.com/PavelDoGreat/WebGL-Fluid-Simulation/master/logo/noise.png');
+    opacity: 0.05; 
+    z-index: 0;
+    pointer-events: none;
+}
+
 /* =========================================
    SECCIÓN 1: HÉROE CORTINA / SIERRA
    ========================================= */
@@ -28,15 +51,14 @@ body {
     height: 100vh;
     position: relative;
     overflow: hidden;
-    background-color: #050505; /* Mismo fondo oscuro que el resto de la web */
+    background-color: #050505; 
 }
 
 .curtain-container {
-    position: sticky; /* Lo mantiene anclado en la pantalla durante el scroll */
+    position: sticky; 
     top: 0;
     width: 100%;
     height: 100vh;
-    /* Usamos flexbox para ayudar al centrado */
     display: flex; 
     justify-content: center;
     align-items: center;
@@ -45,17 +67,11 @@ body {
 
 /* --- EL LOGO SIERRA --- */
 .umbrella-sierra-logo {
-    width: 450px; /* Un poco más grande para que imponga */
+    width: 450px; 
     position: absolute;
-    
-    /* TRUCO PARA CENTRAR PERFECTO SIN AFECTAR GSAP */
     top: 0; bottom: 80px; left: 0; right: 0;
     margin: auto; 
-    
-    /* El eje de rotación debe ser exactamente el centro */
     transform-origin: center center; 
-    
-    /* Brillo rojo tipo alarma/láser para que se vea más pro */
     filter: drop-shadow(0 0 25px rgba(255, 34, 51, 0.8));
     z-index: 2;
 }
@@ -63,7 +79,7 @@ body {
 /* --- EL TEXTO UMBRELLA CORPORATION --- */
 .umbrella-text-bottom {
     position: absolute;
-    bottom: 10vh; /* Se queda en la parte de abajo */
+    bottom: 10vh; 
     width: 100%;
     text-align: center;
     color: #fff;
@@ -72,9 +88,9 @@ body {
 
 .text-main {
     font-size: 3.5rem;
-    font-weight: 700; /* Más grueso */
+    font-weight: 700; 
     letter-spacing: 0.5rem;
-    text-shadow: 0 0 15px rgba(246, 15, 34, 0.5); /* Resplandor rojo sutil */
+    text-shadow: 0 0 15px rgba(246, 15, 34, 0.5); 
 }
 
 .text-sub {
@@ -85,18 +101,11 @@ body {
     margin-top: 5px;
 }
 
-
-
-
-
-
 .card {
     overflow: visible;  
-    
     border-radius: 12px;
     flex: 1;
     text-align: center;
-    
 }
 
 .card-img-placeholder {
@@ -126,6 +135,7 @@ body {
     letter-spacing: 5px;
     text-shadow: 0 0 20px rgba(40, 0, 0, 0.5);
 }
+
 /* =========================================
    SECCIÓN 2: GRID DE TARJETAS (VIRUS)
    ========================================= */
@@ -146,8 +156,8 @@ body {
     font-size: 4rem;
     color: white;
     text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-    opacity: 0; /* Empieza invisible */
-    transform: translateY(-20px); /* Ligeramente hacia arriba */
+    opacity: 0; 
+    transform: translateY(-20px); 
 }
 
 .card-grid-container {
@@ -157,22 +167,21 @@ body {
     width: 100%;
     max-width: 1000px;
     margin: 0 auto;
-    position: relative; /* Necesario para que la línea de escaneo se posicione respecto a esto */
-    overflow: hidden; /* Oculta la línea de escaneo cuando sale del contenedor */
+    position: relative; 
+    overflow: hidden; 
 }
 
-/* 3. Estilos para la LÍNEA DE ESCANEO LÁSER */
 .scan-line {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 4px; /* Grosor de la línea */
-    background: linear-gradient(to right, transparent, #e1ff00, transparent); /* Degradado rojo neón */
-    box-shadow: 0 0 15px #ff2233, 0 0 30px #ff2233; /* Brillo intenso */
-    z-index: 10; /* Por encima de las tarjetas */
-    opacity: 0; /* Empieza invisible */
-    transform: translateY(-100%); /* Empieza fuera por arriba */
+    height: 4px; 
+    background: linear-gradient(to right, transparent, #e1ff00, transparent); 
+    box-shadow: 0 0 15px #ff2233, 0 0 30px #ff2233; 
+    z-index: 10; 
+    opacity: 0; 
+    transform: translateY(-100%); 
 }
 
 /* --- ESTILOS INDIVIDUALES DE LA TARJETA --- */
@@ -183,12 +192,9 @@ body {
   height: 350px;
   margin: 0 auto;
   perspective: 1000PX;
-  opacity: 0; /* Invisibles */
-    transform: translateY(50px) rotateX(-15deg); /* Desplazadas hacia abajo y rotadas en 3D */
-    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.6s ease; /* Transición suave para cuando aparezcan */
-    
-    /* Asegurar que la perspectiva 3D se mantenga para el efecto de volteo posterior */
-    perspective: 1000px;
+  opacity: 0; 
+    transform: translateY(50px) rotateX(-15deg); 
+    transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.6s ease; 
 }
 
 .content {
@@ -216,14 +222,13 @@ body {
   overflow: hidden;
 }
 
-/* === LADO INICIAL (CON IMAGEN Y DESCRIPCIÓN CORTA) === */
+/* === LADO INICIAL === */
 .back {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* Borde animado */
 .back::before {
   position: absolute;
   content: ' ';
@@ -249,7 +254,6 @@ body {
   overflow: hidden;
 }
 
-/* IMAGEN AL 100% DE OPACIDAD */
 .cover-img {
   position: absolute;
   top: 0;
@@ -258,10 +262,9 @@ body {
   height: 100%;
   object-fit: cover;
   z-index: 1;
-  opacity: 1; /* <-- 100% visible */
+  opacity: 1; 
 }
 
-/* Textos flotando sobre la imagen */
 .front-content {
   position: absolute;
   width: 100%;
@@ -318,15 +321,14 @@ body {
   100% { transform: rotateZ(360deg); }
 }
 
-/* === LADO AL VOLTEAR (DESCRIPCIÓN LARGA CON SCROLL) === */
+/* === LADO AL VOLTEAR === */
 .front {
   transform: rotateY(180deg);
-  background-color: #050505; /* Tu color de fondo base */
-  position: relative; /* Necesario para posicionar la imagen */
+  background-color: #050505; 
+  position: relative; 
   overflow: hidden;
 }
 
-/* Este es el contenedor de la imagen transparente */
 .front::before {
   content: "";
   position: absolute;
@@ -334,15 +336,10 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  /* Aquí pones tu imagen */
   background-image: url('../assets/img/gg.jpg'); 
   background-size: cover;
   background-position: center;
-  
-  /* AQUÍ CONTROLAS LA TRANSPARENCIA DE LA IMAGEN */
   opacity: 0.2; 
-  
-  /* Lo enviamos al fondo para que no tape el texto */
   z-index: 0; 
 }
 
@@ -356,7 +353,7 @@ body {
   background: transparent;
   flex-direction: column;
   gap: 10px;
-  overflow-y: auto; /* Permite scroll si hay mucho texto */
+  overflow-y: auto; 
 }
 
 .long-title {
@@ -376,14 +373,13 @@ body {
   margin: 0;
 }
 
-
 /* =========================================
    SECCIÓN 3: PROYECTO B.O.W. (Scroll Horizontal)
    ========================================= */
 
 .bow-section {
     height: 100vh;
-    background-color: #020202;
+    background-color: transparent;
     overflow: hidden;
     position: relative;
     display: flex;
@@ -412,11 +408,11 @@ body {
     text-transform: uppercase;
 }
 
-/* El Riel que contiene los 15 sujetos */
 .bow-horizontal-scroll {
     display: flex;
-    width: 1500vw; /* 100vw por cada uno de los 15 paneles */
+    width: 1500vw; 
     height: 70vh;
+    margin-top: 100px;
     align-items: center;
 }
 
@@ -430,7 +426,6 @@ body {
     padding: 0 5vw;
 }
 
-/* Contenedor de la imagen del monstruo */
 .bow-image-wrapper {
     position: relative;
     width: 400px;
@@ -444,7 +439,7 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    opacity: 0.1; /* Se ilumina con JS */
+    opacity: 0.1; 
     filter: grayscale(100%) contrast(120%);
     transition: filter 0.5s ease;
 }
@@ -456,8 +451,6 @@ body {
     background: radial-gradient(circle, transparent 20%, #020202 95%);
     pointer-events: none;
 }
-
-/* --- BLOQUE DE INFORMACIÓN TÁCTICA --- */
 
 .bow-info {
     width: 550px;
@@ -493,7 +486,6 @@ body {
     padding-bottom: 10px;
 }
 
-/* Grid de datos técnicos */
 .bow-data-grid {
     display: flex;
     flex-direction: column;
@@ -521,12 +513,10 @@ body {
     margin: 0;
 }
 
-/* Colores de Alerta para los bloques */
-.critical h4 { color: #ff2233; } /* Rojo: Peligro/Debilidad */
-.warning h4 { color: #ffcc00; }  /* Amarillo: Conducta */
-.bio h4 { color: #00ff66; }      /* Verde: Lore/Bio */
+.critical h4 { color: #ff2233; } 
+.warning h4 { color: #ffcc00; }  
+.bio h4 { color: #00ff66; }      
 
-/* Barras de Estadísticas */
 .bow-stats {
     margin-top: 20px;
 }
@@ -563,7 +553,7 @@ body {
 
 .evidence-gallery {
     min-height: 100vh;
-    background-color: #050505;
+    background-color: rgba(5, 5, 5, 0.5);
     padding: 120px 8vw;
     position: relative;
 }
@@ -594,11 +584,10 @@ body {
     filter: grayscale(100%) brightness(0.4);
     transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
     cursor: crosshair;
-    opacity: 0; /* Controlado por GSAP */
-    transform: translateY(40px); /* Controlado por GSAP */
+    opacity: 0; 
+    transform: translateY(40px); 
 }
 
-/* Efecto al pasar el mouse por la galería */
 .g-img:hover {
     filter: grayscale(0%) brightness(1.1);
     border-color: #ff2233;
@@ -607,32 +596,53 @@ body {
     z-index: 50;
 }
 
-/* Scrollbar personalizada para que no rompa la estética */
-::-webkit-scrollbar {
-    width: 8px;
-}
-::-webkit-scrollbar-track {
-    background: #050505;
-}
-::-webkit-scrollbar-thumb {
-    background: #333;
-    border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: #ff2233;
-}
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #050505; }
+::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: #ff2233; }
 
 /* =========================================
-   SECCIÓN: REGISTRO DE SUJETOS DE INTERÉS
+   SECCIÓN 5: REGISTRO DE SUJETOS DE INTERÉS
    ========================================= */
+
+.category-title {
+    grid-column: 1 / -1; 
+    border-bottom: 2px solid rgba(255, 34, 51, 0.5);
+    margin-top: 40px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: flex-end; 
+}
+
+.subjects-container .category-title:first-child {
+    margin-top: 0;
+}
+
+.category-title h3 {
+    font-size: 2rem;
+    color: #fff;
+    letter-spacing: 4px;
+    margin: 0;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+.category-title .subtitle-red {
+    color: #ff2233;
+    font-size: 1.2rem;
+    font-family: monospace;
+    letter-spacing: 2px;
+    margin-left: 15px;
+    text-shadow: none;
+}
 
 .subjects-section {
     min-height: 100vh;
     padding: 120px 8vw;
-    background-image: url('../assets/img/mold-texture.jpg'); /* <- Reemplaza con image_111.png o similar */
+    background-image: url('../assets/img/mold-texture.jpg'); 
     background-size: cover;
     background-position: center;
-    background-color: transparent !important; /* Forza transparencia para ver moho fúngico de fondo */
+    background-color: transparent !important; 
     position: relative;
 }
 
@@ -657,7 +667,6 @@ body {
     text-transform: uppercase;
 }
 
-/* Contenedor Grid para las fichas */
 .subjects-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
@@ -668,8 +677,6 @@ body {
     z-index: 5;
 }
 
-/* --- ESTILO DE LA FICHA INDIVIDUAL (SUBJECT CARD) --- */
-
 .subject-card {
     background: rgba(15, 15, 15, 0.8);
     border: 1px solid rgba(255, 255, 255, 0.05);
@@ -678,10 +685,9 @@ body {
     border-radius: 2px;
     backdrop-filter: blur(10px);
     border-left: 3px solid #ff2233;
-    overflow: hidden; /* Oculta estampas que salen */
+    overflow: hidden; 
 }
 
-/* El Clip de Sujeción Visual */
 .card-clip {
     position: absolute;
     top: -5px;
@@ -693,7 +699,6 @@ body {
     z-index: 2;
 }
 
-/* Imagen de Surveillance */
 .subject-img {
     width: 100%;
     height: 350px;
@@ -704,7 +709,6 @@ body {
     display: block;
 }
 
-/* El Sello Rojo de WANTED o TERMINATED */
 .stamp {
     position: absolute;
     top: 50%;
@@ -725,7 +729,6 @@ body {
     opacity: 0.8;
 }
 
-/* Variación para Deceased */
 .deceased .subject-img {
     filter: grayscale(100%) brightness(0.4);
 }
@@ -737,32 +740,413 @@ body {
     box-shadow: 0 0 15px rgba(100, 100, 100, 0.2);
 }
 
-/* Textos de la ficha */
-.card-info {
+.card-info { position: relative; z-index: 5; }
+.card-info h3 { font-size: 1.5rem; color: #fff; margin-bottom: 8px; line-height: 1; }
+.card-info p { font-size: 0.8rem; color: #aaa; margin-bottom: 5px; font-family: monospace; }
+.card-info span { font-weight: bold; }
+
+.threat { color: #ffcc00; } 
+.risk { color: #ff2233; }   
+.safe { color: #00ff66; }   
+.high { color: #00ffff; }   
+
+/* =========================================
+   SECCIÓN 6: ARSENAL TÁCTICO (EL MALETÍN)
+   ========================================= */
+
+.arsenal-section {
+    min-height: 100vh;
+    padding: 100px 8vw;
+    background-color: transparent !important;
     position: relative;
     z-index: 5;
 }
 
-.card-info h3 {
-    font-size: 1.5rem;
+.arsenal-header { text-align: center; margin-bottom: 50px; }
+.arsenal-header h2 { font-size: 3rem; color: #ff2233; text-shadow: 2px 2px 10px rgba(255, 34, 51, 0.5); }
+.arsenal-header p { color: #888; letter-spacing: 2px; }
+
+.attache-case {
+    background: #0a0a0c;
+    border: 8px solid #222; 
+    border-radius: 10px;
+    box-shadow: inset 0 0 50px rgba(0,0,0,0.9), 0 20px 50px rgba(0,0,0,0.8);
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-auto-rows: 200px; 
+    gap: 15px;
+    position: relative;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.inv-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: crosshair;
+    transition: all 0.3s ease;
+    overflow: visible; 
+}
+
+.inv-item.large { grid-column: span 2 !important; } 
+.inv-item.x-large { grid-column: span 3 !important; }
+
+.slot-grid {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background-image: 
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 50px 50px; 
+    pointer-events: none;
+    z-index: 1;
+}
+
+.item-model {
+    max-width: 90%;
+    max-height: 80%;
+    object-fit: contain;
+    z-index: 2;
+    filter: drop-shadow(5px 15px 10px rgba(0,0,0,0.8));
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.4s;
+    will-change: transform;
+}
+
+.herb-img { max-height: 60%; }
+.spray-img { max-height: 70%; }
+
+.inv-item:hover {
+    background: rgba(0, 255, 255, 0.05);
+    border-color: rgba(0, 255, 255, 0.5);
+    box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.1);
+    z-index: 999; 
+}
+
+.inv-item:hover .item-model {
+    transform: translateY(-15px) scale(1.1) rotateZ(-2deg);
+    filter: drop-shadow(0 20px 15px rgba(0,0,0,0.6)) drop-shadow(0 0 10px rgba(0,255,255,0.3));
+}
+
+.holo-stats {
+    position: absolute;
+    top: -20px;
+    left: 105%; 
+    right: auto;
+    width: 250px;
+    background: rgba(5, 10, 15, 0.95);
+    border: 1px solid #00ffff;
+    border-left: 4px solid #00ffff;
+    padding: 15px;
     color: #fff;
-    margin-bottom: 8px;
-    line-height: 1;
-}
-
-.card-info p {
-    font-size: 0.8rem;
-    color: #aaa;
-    margin-bottom: 5px;
     font-family: monospace;
+    font-size: 0.8rem;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(0,255,255,0.2);
+    opacity: 0;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    z-index: 1000;
+    transform: translateX(-20px) scale(0.95);
+    transform-origin: left center;
 }
 
-.card-info span {
-    font-weight: bold;
+.inv-item .holo-stats.flip-left {
+    left: auto !important;
+    right: 105% !important;
+    border-left: 1px solid #00ffff !important;
+    border-right: 4px solid #00ffff !important; 
+    transform-origin: right center !important;
+    transform: translateX(20px) scale(0.95) !important; 
 }
 
-/* Colores de nivel de amenaza */
-.threat { color: #ffcc00; } /* Amarillo Conducta */
-.risk { color: #ff2233; }   /* Rojo Peligro */
-.safe { color: #00ff66; }   /* Verde Ex-empleado */
-.high { color: #00ffff; }   /* Cian Wesker */
+.inv-item:hover .holo-stats {
+    opacity: 1;
+    transform: translateX(0) scale(1) !important;
+}
+
+.holo-stats h4 {
+    color: #00ffff; margin-top: 0; margin-bottom: 10px; font-size: 1.1rem;
+    border-bottom: 1px solid rgba(0,255,255,0.3); padding-bottom: 5px;
+}
+.holo-stats ul { list-style: none; padding: 0; margin: 0; }
+.holo-stats li { margin-bottom: 8px; color: #ccc; }
+.stat-label { color: #888; display: inline-block; width: 80px; }
+
+.holo-stats .bar {
+    display: inline-block; width: 100px; height: 6px; background: #333;
+    vertical-align: middle; margin-left: 5px; border-radius: 3px; overflow: hidden;
+}
+.holo-stats .fill {
+    height: 100%; background: #00ffff; box-shadow: 0 0 5px #00ffff;
+}
+
+
+/* =========================================================================
+   MEDIA QUERIES (AQUÍ ESTÁ LA MAGIA RESPONSIVE PARA SALVAR TU CELULAR)
+   ========================================================================= */
+
+/* --- TABLETS Y PANTALLAS MEDIANAS (Hasta 1024px) --- */
+@media screen and (max-width: 1024px) {
+    /* 1. Ajuste del Logo Umbrella */
+    .umbrella-sierra-logo { width: 320px; }
+    .text-main { font-size: 2.5rem; letter-spacing: 0.3rem; }
+    
+    /* 2. Grid de Virus a 2 columnas */
+    .card-grid-container { grid-template-columns: repeat(2, 1fr); }
+    
+    /* 3. Ajuste B.O.W Horizontal */
+    .bow-panel { 
+        flex-direction: column; /* Apila imagen arriba, info abajo */
+        gap: 20px; 
+        padding: 0 4vw; 
+    }
+    .bow-image-wrapper { width: 280px; height: 380px; }
+    .bow-info { 
+        width: 100%; 
+        max-width: 600px; 
+        padding: 15px; 
+        border-left: none; /* Quitamos borde izquierdo */
+        border-top: 4px solid #ff2233; /* Ponemos borde arriba */
+        border-radius: 0 0 10px 10px; 
+    }
+    .bow-header-data h3 { font-size: 2rem; }
+    .bow-header { top: 20px; left: 20px; }
+}
+
+/* --- CELULARES (Hasta 768px) --- */
+@media screen and (max-width: 768px) {
+    /* 1. Héroe (Cortina) */
+    .umbrella-sierra-logo { width: 220px; }
+    .text-main { font-size: 1.8rem; letter-spacing: 0.1rem; }
+    .text-sub { font-size: 0.8rem; letter-spacing: 0.1rem; }
+    .titulo, .subtitulo { font-size: 2.5rem; }
+    .textos-hero { flex-direction: column; justify-content: center; gap: 30px; }
+
+    /* 2. Grid de Virus (A 1 sola columna) */
+    .seccion-siguiente h2 { font-size: 2.5rem; }
+    .card-grid-container { grid-template-columns: 1fr; }
+    .card { width: 90%; max-width: 350px; } /* Ajusta la tarjeta al ancho de la pantalla */
+
+    /* 3. B.O.W Section (Más ajustes) */
+    .bow-header h2 { font-size: 2rem; }
+    .bow-image-wrapper { width: 220px; height: 300px; }
+    .bow-data-grid { gap: 8px; margin-bottom: 15px; }
+
+    /* 4. Galería */
+    .evidence-gallery { padding: 80px 5vw; }
+    .evidence-gallery h2 { font-size: 2.2rem; }
+
+    /* 5. Sujetos (A 1 columna y textos adaptados) */
+    .subjects-section { padding: 80px 5vw; }
+    .subjects-header h2 { font-size: 2.2rem; }
+    .category-title { flex-direction: column; align-items: flex-start; }
+    .category-title h3 { font-size: 1.5rem; }
+    .category-title .subtitle-red { margin-left: 0; font-size: 0.9rem; margin-top: 5px; }
+    .subjects-container { grid-template-columns: 1fr; }
+
+    /* 6. Arsenal / Maletín (Operación Salvavidas) */
+    .arsenal-section { padding: 60px 5vw; }
+    .arsenal-header h2 { font-size: 2rem; }
+    .attache-case { 
+        grid-template-columns: repeat(2, 1fr); /* 2 Cuadritos por fila */
+        grid-auto-rows: 150px; /* Más chaparritos */
+        padding: 10px;
+        gap: 10px;
+    }
+    
+    /* ¡CRUCIAL! Matamos el span 2 y span 3 en celulares para que no rompa la pantalla */
+    .inv-item.large, 
+    .inv-item.x-large { 
+        grid-column: span 1 !important; 
+    }
+
+    /* FIX SUPREMO PARA HOLOGRAMAS EN CELULAR (Salen hacia arriba y centrados) */
+    .holo-stats,
+    .inv-item .holo-stats.flip-left {
+        width: 200px; /* Más delgados */
+        padding: 10px;
+        /* Los mandamos ARRIBA del item en lugar de a los lados */
+        left: 50% !important;
+        right: auto !important;
+        top: auto !important;
+        bottom: 110% !important; 
+        
+        /* Borde abajo en lugar de los lados */
+        border: 1px solid #00ffff !important;
+        border-bottom: 4px solid #00ffff !important; 
+        
+        /* Centrados perfecto */
+        transform: translateX(-50%) scale(0.8) !important;
+        transform-origin: bottom center !important;
+    }
+    
+    /* Hover en celular (Se activa al tocar la pantalla) */
+    .inv-item:hover .holo-stats,
+    .inv-item:hover .holo-stats.flip-left {
+        transform: translateX(-50%) scale(1) !important;
+    }
+
+    /* Reducimos textos del holograma para que quepan */
+    .holo-stats h4 { font-size: 0.9rem; }
+    .holo-stats p, .holo-stats li { font-size: 0.7rem; }
+    .holo-stats .bar { width: 70px; }
+}
+
+/* --- CELULARES MUY PEQUEÑOS (Hasta 400px) --- */
+@media screen and (max-width: 400px) {
+    /* El maletín pasa a 1 sola columna si la pantalla es enana */
+    .attache-case { grid-template-columns: 1fr; }
+}
+
+/* =========================================
+   SOPORTE TÁCTIL (MÓVILES) - HOVER A CLICK
+   ========================================= */
+
+/* 1. Para las Tarjetas de Virus (3D Flip) */
+.card.active .content {
+    transform: rotateY(180deg);
+}
+
+/* 2. Para el Maletín (Armas) */
+.inv-item.active {
+    background: rgba(0, 255, 255, 0.05);
+    border-color: rgba(0, 255, 255, 0.5);
+    box-shadow: inset 0 0 20px rgba(0, 255, 255, 0.1);
+    z-index: 999; 
+}
+
+.inv-item.active .item-model {
+    transform: translateY(-15px) scale(1.1) rotateZ(-2deg);
+    filter: drop-shadow(0 20px 15px rgba(0,0,0,0.6)) drop-shadow(0 0 10px rgba(0,255,255,0.3));
+}
+
+.inv-item.active .holo-stats {
+    opacity: 1 !important;
+}
+
+/* El fix de centrado para el celular cuando tiene la clase active */
+@media screen and (max-width: 768px) {
+    .inv-item.active .holo-stats,
+    .inv-item.active .holo-stats.flip-left {
+        transform: translateX(-50%) scale(1) !important;
+    }
+}
+
+
+/* =========================================
+   DOSSIER TÁCTICO // LAYOUT REFERENCIADO
+   ========================================= */
+
+.stars-style .holo-inner {
+    background: #000;
+    border: 2px solid rgba(255,255,255,0.05); /* Borde sutil Umbrella */
+    overflow: hidden;
+    box-shadow: 0 40px 100px rgba(0,0,0,0.8), 0 0 20px rgba(0,255,255,0.1);
+}
+
+/* Fondos de Artwork (Ahora son cuadros tácticos) */
+.gta-bg {
+    position: absolute;
+    inset: 0;
+    background: #000; /* Fondo negro base */
+    transform: translateZ(-30px) scale(0.9);
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 5px;
+    font-family: monospace; font-size: 0.7rem; color: #333;
+}
+
+/* placeholders tácticos que no se rompen */
+.mansion-artwork, .nest-artwork {
+    border: 2px dashed rgba(255,255,255,0.05);
+}
+
+.mansion-bg, .nest-bg { display: none; } /* Matamos las clases viejas */
+
+/* Overlay de Textos (Mantenemos el Layout, purificamos los colores) */
+.gta-overlay {
+    position: relative;
+    z-index: 10;
+    padding: 40px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to right, rgba(0,0,0,1) 40%, transparent); /* Degradado negro a transparente */
+    transform: translateZ(50px);
+}
+
+.gta-header-box {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.gta-main-name {
+    font-family: 'Antonio', 'Impact', sans-serif; /* Mayúscula bold y condensada */
+    font-size: 4.5rem;
+    line-height: 0.85;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 900;
+    text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+/* Tag de S.T.A.R.S. en lugar de VI */
+.stars-tag {
+    font-family: 'Antonio', sans-serif;
+    font-size: 1.2rem;
+    color: #ff2233; /* Rojo Umbrella/STARS */
+    border: 3px solid #ff2233;
+    padding: 2px 10px;
+    font-weight: 900;
+}
+
+/* Frase Resaltada Cyan/Magenta (Mantenemos formato Brian Heder) */
+.gta-quote {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #ff2233; /* La frase ahora es roja Umbrella */
+    line-height: 1.1;
+    max-width: 380px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+
+.gta-bio-box { max-width: 420px; }
+
+.gta-text {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    color: #eee;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.gta-status { font-family: monospace; letter-spacing: 2px; color: #888; }
+
+/* Capa de Objetos (Los props tácticos) */
+.gta-props {
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    width: 250px;
+    height: 150px;
+    z-index: 20;
+    transform: translateZ(120px);
+    display: flex; align-items: center; justify-content: center;
+    font-family: monospace; font-size: 0.7rem; color: var(--cyan);
+    text-align: center;
+}
+
+/* placeholders de props que no se rompen */
+.mansion-props, .nest-props {
+    border: 1px solid rgba(0, 255, 255, 0.1);
+    background-color: rgba(0,0,0,0.8);
+    backdrop-filter: blur(5px);
+}

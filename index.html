@@ -8,7 +8,7 @@
     <title>Umbrella Corps</title>
 </head>
 <body>
-
+<canvas id="spore-canvas"></canvas>
   <div class="global-wrapper">
 
        <div class="umbrella-hero-revealer">
@@ -696,11 +696,13 @@
 
     <section class="subjects-section">
        <div class="subjects-container">
-        
+            <div class="category-title">
+                <h3 class="glitch-title">AMENAZAS ACTIVAS <span class="subtitle-red"> PRIORIDAD DE ELIMINACIÓN</span></h3>
+            </div>
             <div class="subject-card">
                 <div class="card-clip"></div>
-                <img src="./assets/img/leon.jpg" class="subject-img" />
-                <div class="stamp wanted">Objetivo: ELIMINAR</div>
+                <img src="./assets/img/leon.jpeg" class="subject-img" />
+                <div class="stamp wanted">OBJETIVO: ELIMINAR</div>
                 <div class="card-info">
                     <h3>LEON S. KENNEDY</h3>
                     <p>Estatus: <span class="threat">AMENAZA ACTIVA</span></p>
@@ -712,7 +714,7 @@
             <div class="subject-card">
                 <div class="card-clip"></div>
                 <img src="./assets/img/jill.jpg" class="subject-img" />
-                <div class="stamp wanted">Objetivo: CAPTURE</div>
+                <div class="stamp wanted">OBJETIVO: CAPTURAR</div>
                 <div class="card-info">
                     <h3>JILL VALENTINE</h3>
                     <p>Estatus: <span class="threat">AMENAZA ACTIVA</span></p>
@@ -724,7 +726,7 @@
             <div class="subject-card">
                 <div class="card-clip"></div>
                 <img src="./assets/img/chris.jpg" class="subject-img" />
-                <div class="stamp wanted">Objetivo: ELIMINAR</div>
+                <div class="stamp wanted">OBJETIVO: ELIMINAR</div>
                 <div class="card-info">
                     <h3>CHRIS REDFIELD</h3>
                     <p>Estatus: <span class="threat">AMENAZA ACTIVA</span></p>
@@ -736,7 +738,7 @@
             <div class="subject-card">
                 <div class="card-clip"></div>
                 <img src="./assets/img/claire.jpg" class="subject-img" />
-                <div class="stamp wanted">Objetivo: DETAIN</div>
+                <div class="stamp wanted">OBJETIVO: DETENER</div>
                 <div class="card-info">
                     <h3>CLAIRE REDFIELD</h3>
                     <p>Estatus: <span class="threat">AMENAZA ACTIVA</span></p>
@@ -747,8 +749,8 @@
 
             <div class="subject-card">
                 <div class="card-clip"></div>
-                <img src="./assets/img/ada.jpg" class="subject-img" />
-                <div class="stamp wanted">Objetivo: OBSERVE</div>
+                <img src="./assets/img/ada.jpeg" class="subject-img" />
+                <div class="stamp wanted">OBJETIVO: OBSERVAR</div>
                 <div class="card-info">
                     <h3>ADA WONG</h3>
                     <p>Estatus: <span class="high">UNKNOWN / ROGUE</span></p>
@@ -757,13 +759,26 @@
                 </div>
             </div>
 
-            <div class="subject-card deceased">
+            <div class="subject-card">
+                <div class="card-clip"></div> <img src="./assets/img/grace.jpg" class="subject-img" /> 
+                
+                <div class="stamp wanted">OBJETIVO: OBSERVAR</div>
+                
+                <div class="card-info">
+                    <h3>GRACE ASHCROFT</h3>
+                    <p>Status: <span class="threat">ACTIVE (EVOLVING)</span></p>
+                    <p>Level: <span class="risk">S+ // ELPIS ZERO</span></p>
+                    <p>Known Affiliations: THE CONNECTIONS</p>
+                </div>
+            </div>
+
+            <div class="subject-card FALLECIDO">
                 <div class="card-clip"></div>
                 <img src="./assets/img/ethan.jpg" class="subject-img" />
-                <div class="stamp deactivated">CASUALTY</div>
+                <div class="stamp deactivated">VICTIMA</div>
                 <div class="card-info">
                     <h3>ETHAN WINTERS</h3>
-                    <p>Estatus: <span class="safe">DECEASED</span></p>
+                    <p>Estatus: <span class="safe">FALLECIDO</span></p>
                     <p>Nivel: <span class="high">A</span></p>
                     <p>AFILIACIÓN: CIVILIAN / MOLDED</p>
                 </div>
@@ -772,7 +787,7 @@
             <div class="subject-card">
                 <div class="card-clip"></div>
                 <img src="./assets/img/rebecca.jpg" class="subject-img" />
-                <div class="stamp wanted">Objetivo: CAPTURE</div>
+                <div class="stamp wanted">OBJETIVO: CAPTURAR</div>
                 <div class="card-info">
                     <h3>REBECCA CHAMBERS</h3>
                     <p>Estatus: <span class="threat">AMENAZA ACTIVA</span></p>
@@ -783,8 +798,8 @@
 
             <div class="subject-card">
                 <div class="card-clip"></div>
-                <img src="./assets/img/barry.jpg" class="subject-img" />
-                <div class="stamp wanted">Objetivo: ELIMINAR</div>
+                <img src="./assets/img/barry.png" class="subject-img" />
+                <div class="stamp wanted">OBJETIVO: ELIMINAR</div>
                 <div class="card-info">
                     <h3>BARRY BURTON</h3>
                     <p>Estatus: <span class="threat">AMENAZA ACTIVA</span></p>
@@ -808,7 +823,7 @@
             <div class="subject-card">
                 <div class="card-clip"></div>
                 <img src="./assets/img/sheva.jpg" class="subject-img" />
-                <div class="stamp wanted">Objetivo: ELIMINAR</div>
+                <div class="stamp wanted">OBJETIVO: ELIMINAR</div>
                 <div class="card-info">
                     <h3>SHEVA ALOMAR</h3>
                     <p>Estatus: <span class="threat">AMENAZA ACTIVA</span></p>
@@ -820,7 +835,7 @@
             <div class="subject-card">
                 <div class="card-clip"></div>
                 <img src="./assets/img/jake.jpg" class="subject-img" />
-                <div class="stamp wanted">PRIORITY: CAPTURE</div>
+                <div class="stamp wanted">PRIORITY: CAPTURAR</div>
                 <div class="card-info">
                     <h3>JAKE MÜLLER</h3>
                     <p>Estatus: <span class="threat">AMENAZA ACTIVA</span></p>
@@ -832,7 +847,7 @@
             <div class="subject-card">
                 <div class="card-clip"></div>
                 <img src="./assets/img/rose.jpg" class="subject-img" />
-                <div class="stamp wanted">PRIORITY: OBSERVE</div>
+                <div class="stamp wanted">PRIORITY: OBSERVAR</div>
                 <div class="card-info">
                     <h3>ROSEMARY WINTERS</h3>
                     <p>Estatus: <span class="high">UNDER SURVEILLANCE</span></p>
@@ -841,157 +856,310 @@
                 </div>
             </div>
 
-            <div class="subject-card deceased">
+            <div class="category-title">
+                <h3 class="glitch-title">ESPECÍMENES CLASIFICADOS <span class="subtitle-red"> REGISTRO DE BAJAS</span></h3>
+            </div>
+
+            <div class="subject-card FALLECIDO">
                 <div class="card-clip"></div>
                 <img src="./assets/img/wesker.jpg" class="subject-img" />
-                <div class="stamp deactivated">TERMINATED</div>
+                <div class="stamp deactivated">FINALIZADO</div>
                 <div class="card-info">
                     <h3>ALBERT WESKER</h3>
-                    <p>Estatus: <span class="safe">DECEASED</span></p>
+                    <p>Estatus: <span class="safe">FALLECIDO</span></p>
                     <p>Nivel: <span class="risk">EXTREME</span></p>
                     <p>AFILIACIÓN: EX-UMBRELLA / TRICELL</p>
                 </div>
             </div>
 
-            <div class="subject-card deceased">
+            <div class="subject-card FALLECIDO">
                 <div class="card-clip"></div>
                 <img src="./assets/img/krauser.jpg" class="subject-img" />
-                <div class="stamp deactivated">TERMINATED</div>
+                <div class="stamp deactivated">FINALIZADO</div>
                 <div class="card-info">
                     <h3>JACK KRAUSER</h3>
-                    <p>Estatus: <span class="safe">DECEASED</span></p>
+                    <p>Estatus: <span class="safe">FALLECIDO</span></p>
                     <p>Nivel: <span class="risk">S</span></p>
                     <p>AFILIACIÓN: LOS ILUMINADOS / USSO</p>
                 </div>
             </div>
 
-            <div class="subject-card deceased">
+            <div class="subject-card FALLECIDO">
                 <div class="card-clip"></div>
                 <img src="./assets/img/salazar.jpg" class="subject-img" />
-                <div class="stamp deactivated">TERMINATED</div>
+                <div class="stamp deactivated">FINALIZADO</div>
                 <div class="card-info">
                     <h3>RAMON SALAZAR</h3>
-                    <p>Estatus: <span class="safe">DECEASED</span></p>
+                    <p>Estatus: <span class="safe">FALLECIDO</span></p>
                     <p>Nivel: <span class="high">A+</span></p>
                     <p>AFILIACIÓN: CASTELLAN / LOS ILUMINADOS</p>
                 </div>
             </div>
 
-            <div class="subject-card deceased">
+            <div class="subject-card FALLECIDO">
                 <div class="card-clip"></div>
                 <img src="./assets/img/saddler.jpg" class="subject-img" />
-                <div class="stamp deactivated">TERMINATED</div>
+                <div class="stamp deactivated">FINALIZADO</div>
                 <div class="card-info">
                     <h3>OSMUND SADDLER</h3>
-                    <p>Estatus: <span class="safe">DECEASED</span></p>
+                    <p>Estatus: <span class="safe">FALLECIDO</span></p>
                     <p>Nivel: <span class="risk">EXTREME</span></p>
                     <p>AFILIACIÓN: LEADER / LOS ILUMINADOS</p>
                 </div>
             </div>
 
-            <div class="subject-card deceased">
+            <div class="subject-card FALLECIDO">
                 <div class="card-clip"></div>
-                <img src="./assets/img/birkin.jpg" class="subject-img" />
-                <div class="stamp deactivated">MUTATED / TERMINATED</div>
+                <img src="./assets/img/birkin.png" class="subject-img" />
+                <div class="stamp deactivated">MUTADO / FINALIZADO</div>
                 <div class="card-info">
                     <h3>WILLIAM BIRKIN</h3>
-                    <p>Estatus: <span class="safe">DECEASED</span></p>
+                    <p>Estatus: <span class="safe">FALLECIDO</span></p>
                     <p>Nivel: <span class="risk">S</span></p>
                     <p>AFILIACIÓN: UMBRELLA R&D / G-VIRUS</p>
                 </div>
             </div>
 
-            <div class="subject-card deceased">
+            <div class="subject-card FALLECIDO">
                 <div class="card-clip"></div>
                 <img src="./assets/img/heisenberg.jpg" class="subject-img" />
-                <div class="stamp deactivated">TERMINATED</div>
+                <div class="stamp deactivated">FINALIZADO</div>
                 <div class="card-info">
                     <h3>KARL HEISENBERG</h3>
-                    <p>Estatus: <span class="safe">DECEASED</span></p>
+                    <p>Estatus: <span class="safe">FALLECIDO</span></p>
                     <p>Nivel: <span class="risk">S+</span></p>
                     <p>AFILIACIÓN: FOUR LORDS / MUTAMYCETE</p>
                 </div>
             </div>
 
-            <div class="subject-card deceased">
+            <div class="subject-card FALLECIDO">
                 <div class="card-clip"></div>
                 <img src="./assets/img/dimitrescu.jpg" class="subject-img" />
-                <div class="stamp deactivated">TERMINATED</div>
+                <div class="stamp deactivated">FINALIZADO</div>
                 <div class="card-info">
                     <h3>ALCINA DIMITRESCU</h3>
-                    <p>Estatus: <span class="safe">DECEASED</span></p>
+                    <p>Estatus: <span class="safe">FALLECIDA</span></p>
                     <p>Nivel: <span class="risk">S</span></p>
                     <p>AFILIACIÓN: FOUR LORDS / CADOU</p>
                 </div>
             </div>
 
-            <div class="subject-card deceased">
+            <div class="subject-card FALLECIDO">
                 <div class="card-clip"></div>
                 <img src="./assets/img/miranda.jpg" class="subject-img" />
-                <div class="stamp deactivated">TERMINATED</div>
+                <div class="stamp deactivated">FINALIZADO</div>
                 <div class="card-info">
                     <h3>MOTHER MIRANDA</h3>
-                    <p>Estatus: <span class="safe">DECEASED</span></p>
+                    <p>Estatus: <span class="safe">FALLECIDA</span></p>
                     <p>Nivel: <span class="risk">EXTREME</span></p>
                     <p>AFILIACIÓN: CULT LEADER / MEGAMYCETE</p>
                 </div>
             </div>
 
-            <div class="subject-card deceased">
+            <div class="subject-card FALLECIDO">
                 <div class="card-clip"></div>
-                <img src="./assets/img/jackbaker.jpg" class="subject-img" />
-                <div class="stamp deactivated">TERMINATED</div>
+                <img src="./assets/img/jackbaker.jpeg" class="subject-img" />
+                <div class="stamp deactivated">FINALIZADO</div>
                 <div class="card-info">
                     <h3>JACK BAKER</h3>
-                    <p>Estatus: <span class="safe">DECEASED</span></p>
+                    <p>Estatus: <span class="safe">FALLECIDO</span></p>
                     <p>Nivel: <span class="high">A+</span></p>
                     <p>AFILIACIÓN: MOLDED / E-TYPE INFECTED</p>
                 </div>
             </div>
 
-            <div class="subject-card deceased">
-                <div class="card-clip"></div>
-                <img src="./assets/img/lucas.jpg" class="subject-img" />
-                <div class="stamp deactivated">TERMINATED</div>
-                <div class="card-info">
-                    <h3>LUCAS BAKER</h3>
-                    <p>Estatus: <span class="safe">DECEASED</span></p>
-                    <p>Nivel: <span class="high">A</span></p>
-                    <p>AFILIACIÓN: THE CONNECTIONS</p>
-                </div>
-            </div>
-
-            <div class="subject-card">
-                <div class="card-clip"></div>
-                <img src="./assets/img/nicholai.jpg" class="subject-img" />
-                <div class="stamp wanted">M.I.A.</div>
-                <div class="card-info">
-                    <h3>NICHOLAI GINOVAEF</h3>
-                    <p>Estatus: <span class="high">UNKNOWN</span></p>
-                    <p>Nivel: <span class="threat">B+</span></p>
-                    <p>AFILIACIÓN: U.B.C.S. MONITOR</p>
-                </div>
-            </div>
-
-            <div class="subject-card">
-                <div class="card-clip"></div>
-                <img src="./assets/img/alex.jpg" class="subject-img" />
-                <div class="stamp wanted">Objetivo: OBSERVE</div>
-                <div class="card-info">
-                    <h3>ALEX WESKER</h3>
-                    <p>Estatus: <span class="threat">ACTIVE (TRANSFERRED)</span></p>
-                    <p>Nivel: <span class="risk">EXTREME</span></p>
-                    <p>AFILIACIÓN: SPENCER PROJECT</p>
-                </div>
-            </div>
-
         </div>
     </section>
+    
+    <section class="arsenal-section">
+        <div class="arsenal-header">
+            <h2 class="glitch-title">ARSENAL TÁCTICO ANTI-B.O.W.</h2>
+            <p>Equipamiento Autorizado // Maletín de Supervivencia // Nivel de Acceso 4</p>
+        </div>
 
+        <div class="attache-case">
+        
+           <div class="inv-item weapon">
+            <div class="slot-grid"></div>
+            <img src="./assets/img//armas/cuchillo.png" alt="Cuchillo de Combate" class="item-model">
+            <div class="holo-stats">
+                <h4>CUCHILLO DE COMBATE</h4>
+                <ul>
+                    <li><span class="stat-label">TIPO:</span> Arma Blanca</li>
+                    <li><span class="stat-label">DURAB.:</span> <div class="bar"><div class="fill" style="width: 100%; background: #00ff66;"></div></div></li>
+                    <li><span class="stat-label">NOTAS:</span> Indispensable. Permite desviar ataques (Parry) e instakills a enemigos caídos.</li>
+                </ul>
+            </div>
+        </div>
 
+        <div class="inv-item weapon">
+            <div class="slot-grid"></div>
+            <img src="./assets/img/armas/samurai.png" alt="Samurai Edge" class="item-model">
+            <div class="holo-stats">
+                <h4>SAMURAI EDGE</h4>
+                <ul>
+                    <li><span class="stat-label">TIPO:</span> Beretta 92F Custom</li>
+                    <li><span class="stat-label">DAÑO:</span> <div class="bar"><div class="fill" style="width: 25%"></div></div></li>
+                    <li><span class="stat-label">NOTAS:</span> El símbolo de S.T.A.R.S. Alta probabilidad de reventar cráneos.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="inv-item weapon">
+            <div class="slot-grid"></div>
+            <img src="./assets/img/armas/matilda.png" alt="Matilda" class="item-model">
+            <div class="holo-stats">
+                <h4>MATILDA</h4>
+                <ul>
+                    <li><span class="stat-label">TIPO:</span> Pistola de Ráfagas</li>
+                    <li><span class="stat-label">DAÑO:</span> <div class="bar"><div class="fill" style="width: 35%"></div></div></li>
+                    <li><span class="stat-label">NOTAS:</span> Inconfundible arma de Leon. Dispara ráfagas de 3 tiros con culata montada.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="inv-item weapon">
+            <div class="slot-grid"></div>
+            <img src="./assets/img/armas/red9.png" alt="Red9" class="item-model">
+            <div class="holo-stats">
+                <h4>RED9</h4>
+                <ul>
+                    <li><span class="stat-label">TIPO:</span> Mauser C96</li>
+                    <li><span class="stat-label">DAÑO:</span> <div class="bar"><div class="fill" style="width: 60%"></div></div></li>
+                    <li><span class="stat-label">NOTAS:</span> La mejor pistola. Pegada brutal, estabilizada con culata de madera.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="inv-item weapon">
+            <div class="slot-grid"></div>
+            <img src="./assets/img/armas/lighthing.png" alt="Lightning Hawk" class="item-model">
+            <div class="holo-stats">
+                <h4>LIGHTNING HAWK</h4>
+                <ul>
+                    <li><span class="stat-label">TIPO:</span> Desert Eagle Magnum</li>
+                    <li><span class="stat-label">DAÑO:</span> <div class="bar"><div class="fill" style="width: 85%"></div></div></li>
+                    <li><span class="stat-label">NOTAS:</span> Estándar de oro. Atraviesa jefes finales como si fueran mantequilla.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="inv-item weapon large">
+            <div class="slot-grid"></div>
+            <img src="./assets/img/armas/requiem.png" alt="Requiem RSh-12" class="item-model">
+            <div class="holo-stats">
+                <h4 style="color: #ff2233; border-color: #ff2233;">REQUIEM (RSh-12)</h4>
+                <ul>
+                    <li><span class="stat-label">TIPO:</span> Revólver 12.7mm</li>
+                    <li><span class="stat-label">DAÑO:</span> <div class="bar"><div class="fill" style="width: 95%; background: #ff2233;"></div></div></li>
+                    <li><span class="stat-label">NOTAS:</span> Potencia bruta absoluta. Atraviesa blindajes biológicos pesados de un tiro.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="inv-item weapon large">
+            <div class="slot-grid"></div>
+            <img src="./assets/img/armas/hydra.png" alt="Hydra" class="item-model">
+            <div class="holo-stats">
+                <h4>HYDRA</h4>
+                <ul>
+                    <li><span class="stat-label">TIPO:</span> Escopeta Recortada</li>
+                    <li><span class="stat-label">DAÑO:</span> <div class="bar"><div class="fill" style="width: 75%"></div></div></li>
+                    <li><span class="stat-label">NOTAS:</span> Tres cañones. Estética agresiva. Letal a corta distancia en abanico.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="inv-item weapon large">
+            <div class="slot-grid"></div>
+            <img src="./assets/img/armas/gm79.png" alt="GM 79" class="item-model">
+            <div class="holo-stats">
+                <h4>LANZAGRANADAS GM 79</h4>
+                <ul>
+                    <li><span class="stat-label">TIPO:</span> Artillería Ligera</li>
+                    <li><span class="stat-label">DAÑO:</span> <div class="bar"><div class="fill" style="width: 80%"></div></div></li>
+                    <li><span class="stat-label">NOTAS:</span> Compañero fiel de Jill/Claire. Dispara Fuego, Ácido o Explosivos.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="inv-item weapon large">
+            <div class="slot-grid"></div>
+            <img src="./assets/img/armas/chicago.png" alt="Chicago" class="item-model">
+            <div class="holo-stats">
+                <h4>CHICAGO TYPEWRITER</h4>
+                <ul>
+                    <li><span class="stat-label">TIPO:</span> Subfusil Thompson</li>
+                    <li><span class="stat-label">DAÑO:</span> <div class="bar"><div class="fill" style="width: 90%; background: #ffcc00;"></div></div></li>
+                    <li><span class="stat-label">NOTAS:</span> Arma de bonificación. Munición infinita. Limpia pasillos a lo gánster.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="inv-item weapon x-large">
+            <div class="slot-grid"></div>
+            <img src="./assets/img/armas/prl.png" alt="P.R.L. 412" class="item-model">
+            <div class="holo-stats">
+                <h4 style="color: #00ffcc; border-color: #00ffcc;">P.R.L. 412</h4>
+                <ul>
+                    <li><span class="stat-label">TIPO:</span> Particle Rifle Laser</li>
+                    <li><span class="stat-label">DAÑO:</span> <div class="bar"><div class="fill" style="width: 100%; background: #00ffcc;"></div></div></li>
+                    <li><span class="stat-label">NOTAS:</span> Tecnología Plaga. Limpia habitaciones enteras con un solo destello de luz.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="inv-item weapon x-large">
+            <div class="slot-grid"></div>
+            <img src="./assets/img/armas/rocket.png" alt="Rocket Launcher" class="item-model">
+            <div class="holo-stats">
+                <h4 style="color: #ff2233; border-color: #ff2233;">LANZACOHETES ANTI-TANQUE</h4>
+                <ul>
+                    <li><span class="stat-label">TIPO:</span> Proyectil Explosivo</li>
+                    <li><span class="stat-label">DAÑO:</span> <div class="bar"><div class="fill" style="width: 100%; background: #ff2233;"></div></div></li>
+                    <li><span class="stat-label">NOTAS:</span> El misil final. Recurso narrativo definitivo para acabar con la mutación de turno.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="inv-item herb green">
+            <div class="slot-grid"></div>
+            <img src="./assets/img/armas/hiberba.png" alt="Hierba Verde" class="item-model herb-img">
+            <div class="holo-stats">
+                <h4 style="color: #00ff66; border-color: #00ff66; ">HIERBA VERDE</h4>
+                <p>Planta curativa autóctona. Restaura un 25% de la salud física.</p>
+            </div>
+        </div>
+
+        <div class="inv-item herb mix">
+            <div class="slot-grid"></div>
+            <img src="./assets/img/armas/hierbas.png" alt="Mezcla de Hierbas" class="item-model herb-img">
+            <div class="holo-stats">
+                <h4 style="color: #ffcc00; border-color: #ffcc00;">MEZCLA (V+R)</h4>
+                <p>Efecto potenciado. Restaura el 100% de la salud al instante.</p>
+            </div>
+        </div>
+
+        <div class="inv-item spray">
+            <div class="slot-grid"></div>
+            <img src="./assets/img/armas/spray.png" alt="FAS" class="item-model spray-img">
+            <div class="holo-stats">
+                <h4>PRIMEROS AUXILIOS</h4>
+                <p>Fabricado por Umbrella Medical. Cura total. (Baja tu rango al final).</p>
+            </div>
+        </div>
+
+        </div>
+
+        
+    </section>
+
+    
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/gsap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.1/dist/ScrollTrigger.min.js"></script>
-    <script src="./js/app.js"></script>
+    <script type="module" src="./js/app.js"></script>
 
 </body>
 </html>
